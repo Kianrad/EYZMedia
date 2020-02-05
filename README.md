@@ -1,5 +1,8 @@
 # This is just a code challenge for a great company
 
+-Install  
+To install packages just type "npm install"
+
 -Build  
 To compile TS file just type "tsc"
 
