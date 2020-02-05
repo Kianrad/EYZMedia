@@ -15,12 +15,12 @@ There are Dockerfile and docker_compose files and you can run it by "docker-comp
 -Test  
 To run the Test just type "npm test"
 
--Using  
+-Use  
 I've created some api to check functionality
 
 --http://localhost:3003/api/list  
-at the first it deletes the whole data from the database then fetch data from the url (No.1) and then
-it save all data into database (No.2)
+at the first it deletes the whole data from the database then fetches data from the url (No.1) and then
+it saves all data into database (No.2)
 
 --http://localhost:3003/api/identify  
 it fetch some information form the database (No.3)
