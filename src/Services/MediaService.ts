@@ -20,9 +20,13 @@ export class MediaService {
     return Media.deleteMany({})
       .exec()
       .then(data => {
-        return data.n;
+        if (data.deletedCount !== undefined) {
+          return data.deletedCount;
+        } else {
+          return 0;
+        }
       })
-      .then(() => {
+      .catch(() => {
         return 0;
       });
   }

@@ -50,15 +50,22 @@ var HomeController = /** @class */ (function () {
     }
     HomeController.prototype.list = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.mediaService.saveAll()];
+                    case 0: return [4 /*yield*/, this.mediaService
+                            .save()
+                            .then(function (data) {
+                            res.status(200).json({
+                                result: data
+                            });
+                        })
+                            .catch(function (err) {
+                            res.status(500).json({
+                                error: err
+                            });
+                        })];
                     case 1:
-                        response = _a.sent();
-                        res.status(200).json({
-                            message: response
-                        });
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
@@ -66,15 +73,22 @@ var HomeController = /** @class */ (function () {
     };
     HomeController.prototype.identify = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.mediaService.identifyValues()];
+                    case 0: return [4 /*yield*/, this.mediaService
+                            .identifyValues()
+                            .then(function (data) {
+                            res.status(200).json({
+                                result: data
+                            });
+                        })
+                            .catch(function (err) {
+                            res.status(500).json({
+                                error: err
+                            });
+                        })];
                     case 1:
-                        response = _a.sent();
-                        res.status(200).json({
-                            result: response
-                        });
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
@@ -82,15 +96,22 @@ var HomeController = /** @class */ (function () {
     };
     HomeController.prototype.update = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var response;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.mediaService.update()];
+                    case 0: return [4 /*yield*/, this.mediaService
+                            .update()
+                            .then(function (count) {
+                            res.status(200).json({
+                                message: count + " row(s) updated!"
+                            });
+                        })
+                            .catch(function (err) {
+                            res.status(500).json({
+                                error: err
+                            });
+                        })];
                     case 1:
-                        response = _a.sent();
-                        res.status(200).json({
-                            result: response + " row(s) updated!"
-                        });
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });

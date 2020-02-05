@@ -37,6 +37,9 @@ var WebServer = /** @class */ (function (_super) {
             });
         });
     };
+    WebServer.prototype.getAppInstance = function () {
+        return this.app;
+    };
     WebServer.prototype.setupControllers = function () {
         var ctlrInstances = [];
         for (var name_1 in controllers) {

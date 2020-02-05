@@ -11,7 +11,9 @@ var MongoHelper = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             mongoose.connect(url, {
                 useNewUrlParser: true,
-                useUnifiedTopology: true
+                useUnifiedTopology: true,
+                socketTimeoutMS: 5000,
+                connectTimeoutMS: 5000
             });
             mongoose.connection.once("open", function () {
                 resolve("Connected to Mongo via Mongoose");

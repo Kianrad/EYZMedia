@@ -37,8 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
-var Media_1 = require("../Schemas/Media");
 var Config_1 = require("../Config/Config");
+var Media_1 = require("../Schemas/Media");
 var MediaService = /** @class */ (function () {
     function MediaService() {
         this.apiClient = axios_1.default.create({
@@ -55,14 +55,18 @@ var MediaService = /** @class */ (function () {
     MediaService.prototype.deleteAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        Media_1.Media.deleteMany({})
-                            .then(function (data) {
-                            resolve(data.n);
-                        })
-                            .then(function () {
-                            reject(0);
-                        });
+                return [2 /*return*/, Media_1.Media.deleteMany({})
+                        .exec()
+                        .then(function (data) {
+                        if (data.deletedCount !== undefined) {
+                            return data.deletedCount;
+                        }
+                        else {
+                            return 0;
+                        }
+                    })
+                        .catch(function () {
+                        return 0;
                     })];
             });
         });
@@ -70,28 +74,35 @@ var MediaService = /** @class */ (function () {
     /**
      * saveAll
      */
-    MediaService.prototype.saveAll = function () {
+    MediaService.prototype.save = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
+            var media;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                        var media;
-                        return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0: return [4 /*yield*/, this.getMediaList()];
-                                case 1:
-                                    media = _a.sent();
-                                    Media_1.Media.create(media)
-                                        .then(function (data) {
-                                        resolve(data.length);
-                                    })
-                                        .catch(function () {
-                                        reject(0);
-                                    });
-                                    return [2 /*return*/];
-                            }
-                        });
-                    }); })];
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.deleteAll()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.getMediaList()];
+                    case 2:
+                        media = _a.sent();
+                        return [2 /*return*/, this.saveMedia(media)];
+                }
+            });
+        });
+    };
+    /**
+     * saveMedia
+     */
+    MediaService.prototype.saveMedia = function (media) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, Media_1.Media.create(media)
+                        .then(function (data) {
+                        return data.length;
+                    })
+                        .catch(function () {
+                        return 0;
+                    })];
             });
         });
     };
@@ -132,31 +143,33 @@ var MediaService = /** @class */ (function () {
     MediaService.prototype.update = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        var res = Media_1.Media.updateMany({
-                            Status: "New iTunes Pack",
-                            Archive_Status: "Encoded"
-                        }, { Status: "Transferring to UC" }, { new: false, multi: true })
-                            .then(function (data) {
-                            resolve(data.n);
-                        })
-                            .catch(function (err) {
-                            reject(0);
-                        });
+                return [2 /*return*/, Media_1.Media.updateMany({
+                        Status: "New iTunes Pack",
+                        Archive_Status: "Encoded"
+                    }, { Status: "Transferring to UC" }, { new: false, multi: true })
+                        .exec()
+                        .then(function (data) {
+                        return data.n;
+                    })
+                        .catch(function (err) {
+                        return err;
                     })];
             });
         });
     };
+    /**
+     * Get Media From URL
+     */
     MediaService.prototype.getMediaList = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        _this.apiClient.get("nodejs_test.json").then(function (response) {
-                            resolve(response.data);
-                        }, function (err) {
-                            reject(err);
-                        });
+                return [2 /*return*/, this.apiClient
+                        .get("nodejs_test.json")
+                        .then(function (response) {
+                        return response.data;
+                    })
+                        .catch(function (err) {
+                        return err;
                     })];
             });
         });

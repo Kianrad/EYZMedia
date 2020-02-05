@@ -1,1 +1,1 @@
-{"version":3,"file":"IUniqueValues.js","sourceRoot":"","sources":["../../src/Interfaces/IUniqueValues.ts"],"names":[],"mappings":""}
+{"version":3,"file":"IUniqueValues.js","sourceRoot":"./src/","sources":["Interfaces/IUniqueValues.ts"],"names":[],"mappings":""}
