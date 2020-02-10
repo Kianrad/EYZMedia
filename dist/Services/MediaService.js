@@ -36,18 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = require("axios");
-var Config_1 = require("../Config/Config");
 var Media_1 = require("../Schemas/Media");
+var DataFetchService_1 = require("./DataFetchService");
 var MediaService = /** @class */ (function () {
     function MediaService() {
-        this.apiClient = axios_1.default.create({
-            baseURL: Config_1.ENDPOINT,
-            responseType: "json",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+        this.dataFetch = new DataFetchService_1.DataFetchService();
     }
     /**
      * deleteAll
@@ -82,7 +75,7 @@ var MediaService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.deleteAll()];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.getMediaList()];
+                        return [4 /*yield*/, this.dataFetch.getMediaList()];
                     case 2:
                         media = _a.sent();
                         return [2 /*return*/, this.saveMedia(media)];
@@ -150,23 +143,6 @@ var MediaService = /** @class */ (function () {
                         .exec()
                         .then(function (data) {
                         return data.n;
-                    })
-                        .catch(function (err) {
-                        return err;
-                    })];
-            });
-        });
-    };
-    /**
-     * Get Media From URL
-     */
-    MediaService.prototype.getMediaList = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, this.apiClient
-                        .get("nodejs_test.json")
-                        .then(function (response) {
-                        return response.data;
                     })
                         .catch(function (err) {
                         return err;

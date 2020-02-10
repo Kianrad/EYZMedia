@@ -1,18 +1,10 @@
-import axios from "axios";
-import { ENDPOINT } from "../Config/Config";
 import { IMedia } from "../Interfaces/IMedia";
 import { IUniqueValues } from "../Interfaces/IUniqueValues";
 import { Media } from "../Schemas/Media";
+import { DataFetchService } from "./DataFetchService";
 
 export class MediaService {
-  private apiClient = axios.create({
-    baseURL: ENDPOINT,
-    responseType: "json",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-
+  private dataFetch = new DataFetchService();
   /**
    * deleteAll
    */
@@ -35,7 +27,7 @@ export class MediaService {
    */
   public async save(): Promise<number> {
     await this.deleteAll();
-    const media: IMedia[] = await this.getMediaList();
+    const media: IMedia[] = await this.dataFetch.getMediaList();
     return this.saveMedia(media);
   }
 
@@ -83,20 +75,6 @@ export class MediaService {
       .exec()
       .then(data => {
         return data.n;
-      })
-      .catch(err => {
-        return err;
-      });
-  }
-
-  /**
-   * Get Media From URL
-   */
-  public async getMediaList(): Promise<IMedia[]> {
-    return this.apiClient
-      .get("nodejs_test.json")
-      .then(response => {
-        return response.data as IMedia[];
       })
       .catch(err => {
         return err;
