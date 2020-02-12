@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/index.js",
-    "test": "mocha -r ts-node/register test/MediaService.test.ts --timeout 6000"
+    "test": "mocha -r ts-node/register test/MediaService.test.ts test/DataFetchService.test.ts --timeout 6000"
   },
   "repository": {
     "type": "git",

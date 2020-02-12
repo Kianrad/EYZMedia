@@ -1,14 +1,15 @@
 import * as chai from "chai";
 import * as chaiAsPromised from "chai-as-promised";
 import { MONGODB_URI } from "../src/Config/Config";
-import { IUniqueValues } from "../src/Interfaces/IUniqueValues";
 import { MongoHelper } from "../src/Server/MongoHelper";
+import { DataFetchService } from "../src/Services/DataFetchService";
 import { MediaService } from "../src/Services/MediaService";
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 const mediaService = new MediaService();
+const datafetchService = new DataFetchService();
 
 describe("MediaService Test", () => {
   let connection = "";
@@ -26,8 +27,8 @@ describe("MediaService Test", () => {
     expect(p).to.gte(0);
   });
 
-  it("Get Media List From URL", async () => {
-    const p = await mediaService.getMediaList();
+  it("Get Media List From URL And Save", async () => {
+    const p = await datafetchService.getMediaList();
     expect(p).to.length(180);
     const s = await mediaService.saveMedia(p);
     expect(s).to.equal(180);
